@@ -1,0 +1,52 @@
+.card-product{
+  width: 332px;
+  height: 423px;
+  background: #FFFEFB;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.04), 0 6px 10px rgba(0, 0, 0, 0.02);
+  border-radius: 4px;
+  color: #3F3F3F;
+  position: relative;
+  &:hover{
+    cursor: url("/img/hover.png"), auto;
+    .card-product__btn{
+      display: flex;
+    }
+  }
+  &__btn{
+    display: none;
+    position: absolute;
+    cursor: url("/img/hover.png"), auto;
+    right: -9px;
+    top: -9px;
+    outline: none;
+    border: none;
+    width: 35px;
+    height: 35px;
+    background: url("/img/del.png"), no-repeat;
+  }
+  &__img{
+
+  }
+  &__item{
+    padding: 16px 16px 0 16px;
+  }
+  &__name{
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 25px;
+
+  }
+  &__description{
+    margin-top: 16px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+  }
+  &__price{
+    margin-top: 32px;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+}

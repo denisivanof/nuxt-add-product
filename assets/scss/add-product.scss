@@ -1,7 +1,7 @@
 .add{
   position: fixed;
-  padding: 32px 0 0 32px;
-  max-width: 332px;
+  //padding: 32px 0 0 32px;
+  max-width: 364px;
  &__h2{
    font-weight: 600;
    font-size: 28px;
@@ -19,6 +19,7 @@
   }
   &__form-item{
     margin-top: 16px;
+    position: relative;
   }
   &__form-item:first-child{
     margin-top: 0;
@@ -59,6 +60,21 @@
     height: 108px;
     padding-top: 10px;
   }
+  &__form-input--error{
+    border: 1px solid #FF8484;
+  }
+  &__form-input--success{
+    border: 1px solid #7BAE73;
+  }
+  &__form-hint{
+    position: absolute;
+    bottom: -14px;
+    left: 0;
+    font-size: 8px;
+    line-height: 10px;
+    letter-spacing: -0.02em;
+    color: #FF8484;
+  }
   &__form-btn{
     margin-top: 24px;
     width: 100%;
@@ -74,5 +90,9 @@
     text-align: center;
     letter-spacing: -0.02em;
     color: #B4B4B4;
+  }
+  &__form-btn--active{
+    background: #7BAE73;
+    color: #FFFFFF;
   }
 }

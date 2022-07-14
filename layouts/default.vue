@@ -1,7 +1,7 @@
 <template>
     <header>
     </header>
-    <main>
+    <main class="main">
       <slot />
     </main>
     <footer>
@@ -9,4 +9,10 @@
 </template>
 <script setup>
 </script>
+<style>
+.main{
+height: 100vh;
+padding: 32px 32px 0 32px;
+}
+</style>
 

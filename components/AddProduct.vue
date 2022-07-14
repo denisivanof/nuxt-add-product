@@ -6,34 +6,50 @@
       <label class="add__form-label add__form-label--req">Наименование товара</label>
       <input class="add__form-input"
              placeholder="Введите наименование товара"
-             v-model="name"
-             @focus="onFocus"
+             v-model="state.name"
+             name="name"
+             @input="onInput"
              @blur="onBlur"
-
+             :class="{'add__form-input--error': error.name, 'add__form-input--success': success.name}"
       />
+      <span v-if="error.name" class="add__form-hint">Поле является обязательным</span>
     </div>
     <div class="add__form-item">
       <label class="add__form-label">Описание товара</label>
       <textarea class="add__form-input add__form-input--text"
                 placeholder="Введите описание товара"
-                v-model="description"
+                v-model="state.description"
+                name="description"
       />
     </div>
     <div class="add__form-item">
       <label class="add__form-label add__form-label--req">Ссылка на изображение товара</label>
       <input class="add__form-input"
              placeholder="Введите ссылку"
-             v-model="linkImg"
+             v-model="state.linkImg"
+             name="linkImg"
+             @input="onInput"
+             @blur="onBlur"
+             :class="{'add__form-input--error': error.linkImg, 'add__form-input--success': success.linkImg}"
       />
+      <span v-if="error.linkImg" class="add__form-hint">Поле является обязательным</span>
     </div>
     <div class="add__form-item">
       <label class="add__form-label add__form-label--req">Цена товара</label>
       <input class="add__form-input"
              placeholder="Введите цену"
-             v-model="price"
+             v-model="state.price"
+             name="price"
+             @input="onInput"
+             @blur="onBlur"
+             :class="{'add__form-input--error': error.price, 'add__form-input--success': success.price}"
       />
+      <span v-if="error.price" class="add__form-hint">Поле является обязательным</span>
     </div>
-    <button class="add__form-btn" @click.prevent="submit">
+    <button class="add__form-btn"
+            :class="{'add__form-btn--active': isActive}"
+            @click.prevent="submit"
+    >
       Добавить товар
     </button>
   </form>
@@ -41,25 +57,59 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import {ref, watch, reactive} from 'vue'
+const emit = defineEmits(['add'])
 
-const name = ref('')
-const description = ref('')
-const linkImg = ref('')
-const price = ref('')
+const isActive = ref(false)
+const state = reactive({
+  name: '',
+  description: '',
+  linkImg: '',
+  price: '',
+})
+const error = reactive({
+  name: false,
+  linkImg: false,
+  price: false,
+})
+const success = reactive({
+  name: false,
+  linkImg: false,
+  price: false,
+})
 
+const setIsActive = ()=>{
+  const {name, linkImg,price } = state
+  if(name.length && linkImg.length && price.length){
+    isActive.value = true
+  }else {
+    isActive.value = false
+  }
+}
+watch(state, setIsActive)
 
-const onFocus = (e)=>{
-  console.log(e)
+const onInput = (e)=>{
+  if(state[e.target.name].length){
+    success[e.target.name] = true
+    error[e.target.name] = false
+  }
 }
 const onBlur = (e)=>{
-  console.log(name.value)
+  if(!state[e.target.name].length){
+    success[e.target.name] = false
+    error[e.target.name] = true
+  }
 }
 const submit = () => {
-  console.log(name.value)
-  console.log(description.value)
-  console.log(linkImg.value)
-  console.log(price.value)
+  if(isActive.value){
+    emit('add', state)
+  }else {
+    for (const key in error) {
+      if(!success[key]){
+        error[key] = true
+      }
+    }
+  }
 }
 </script>
 <style lang="scss">
