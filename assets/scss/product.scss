@@ -1,7 +1,9 @@
 .product{
   padding-left: 348px;
-  //padding-top: 32px;
-  //padding-right: 32px;
+  @media (max-width: 1020px) {
+    padding-left: 0;
+    margin-top: 16px;
+  }
   &__sort{
     display: flex;
     justify-content: flex-end;
@@ -24,6 +26,7 @@
   }
   &__sort-dropdown{
     position: absolute;
+    z-index: 10;
     top: 38px;
     width: 122px;
     background: #FFFEFB;
@@ -46,8 +49,11 @@
   }
   &__items{
     margin-top: 16px;
-    display: grid;
-    grid-template-columns: repeat(3, 332px);
+    display: flex;
+    flex-wrap: wrap;
     grid-gap: 16px;
+    @media (max-width: 680px) {
+      justify-content: center;
+    }
   }
 }

@@ -3,24 +3,22 @@
     <product :products="products" @del="del"/>
 </template>
 <script setup>
-import {ref} from 'vue'
+import {ref, onMounted} from 'vue'
 import AddProduct from "../components/AddProduct";
 import Product from "../components/Product";
 
+onMounted(() => {
+  products.value = JSON.parse(localStorage.getItem('products'))
+})
 const products = ref([])
 const add = (e) => {
   products.value.push({...e, id: Date.now()})
+  localStorage.setItem('products', JSON.stringify(products.value))
 }
 const del = (e) => {
  products.value = products.value.filter(item=>item.id !== e)
 }
-
 </script>
-
 <style lang="scss">
- .main{
-   //height: 100vh;
-   //padding: 32px 32px 0 32px;
- }
 </style>
 

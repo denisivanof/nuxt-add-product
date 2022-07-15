@@ -16,17 +16,36 @@
         <li>По цене max</li>
       </ul>
     </div>
-    <div class="product__items">
-      <card-product v-for="item  in products" :key="item.id" :item="item" @del="emit('del', item.id)"/>
-    </div>
+      <div class="product__items">
+        <card-product v-for="item  in items" :key="item.id" :item="item" @del="emit('del', item.id)"/>
+      </div>
   </div>
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {ref, computed} from "vue";
 import CardProduct from "./CardProduct";
 const props = defineProps(['products'])
 const emit = defineEmits(['del'])
+
+const items = computed(()=>{
+  if(select.value === 'По наименованию'){
+   return props.products.sort((a,b)=>{
+      if (a.name > b.name) {
+        return 1;
+      }
+      if (a.name < b.name) {
+        return -1;
+      }
+      return 0;
+    })
+  }else if(select.value === 'По цене min'){
+    return props.products.sort((a,b)=>a.price-b.price)
+  }else if(select.value === 'По цене max'){
+    return props.products.sort((a,b)=>b.price-a.price)
+  }
+  return props.products
+})
 
 const select = ref('По умолчанию')
 const isOpen = ref(false)
