@@ -8,7 +8,9 @@ import AddProduct from "../components/AddProduct";
 import Product from "../components/Product";
 
 onMounted(() => {
-  products.value = JSON.parse(localStorage.getItem('products'))
+  if(localStorage.getItem('products')){
+    products.value = JSON.parse(localStorage.getItem('products'))
+  }
 })
 const products = ref([])
 const add = (e) => {
